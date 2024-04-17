@@ -21,19 +21,33 @@ public class Car : MonoBehaviour
 
         if(x > 0)
         {
-            motor.motorSpeed = -speed;
+            motor.motorSpeed -= speed;
             motor.maxMotorTorque = torque;
             wheels[0].motor = motor;
             wheels[1].motor = motor;
         }
         else if(x < 0)
         {
-            motor.motorSpeed = speed;
+            motor.motorSpeed += speed;
             motor.maxMotorTorque = torque;
             wheels[0].motor = motor;
             wheels[1].motor = motor;
         }
         else
+        {
+            if(motor.motorSpeed > 0)
+            {
+                motor.motorSpeed -= speed / 2;
+            }
+            else
+            {
+                motor.motorSpeed += speed / 2;
+            }
+            wheels[0].motor = motor;
+            wheels[1].motor = motor;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             motor.motorSpeed = 0;
             wheels[0].motor = motor;
